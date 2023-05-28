@@ -67,7 +67,7 @@ node insertend(node start)
 
 }
 
-
+// search with respect to year ie int
 node searchyear(node start)
 {
     node newnode,p;
@@ -90,6 +90,8 @@ node searchyear(node start)
     return start;
 }
 
+
+// Finding highest value in int or float
 void searchsal(node start)
 {
     node p=start;
