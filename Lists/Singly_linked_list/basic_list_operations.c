@@ -190,23 +190,23 @@ int count(Node head){
 
 }
 
-// sorting the list
-Node sort(Node head){
-    Node temp1, temp2, prenode;
-    int coount = count(head);
-    for(int i=0; i<n-1; i++){
-        for(int j=0; j<n-1-i; j++){
-            temp1 = head;
-            temp2 = temp1->next;
-            if(temp1->data > temp2->data){
-                temp1->next = temp2->next;
-                temp2->next = temp1;
-                prenode->next = temp2;
-            }
+// // sorting the list
+// Node sort(Node head){
+//     Node temp1, temp2, prenode;
+//     int coount = count(head);
+//     for(int i=0; i<n-1; i++){
+//         for(int j=0; j<n-1-i; j++){
+//             temp1 = head;
+//             temp2 = temp1->next;
+//             if(temp1->data > temp2->data){
+//                 temp1->next = temp2->next;
+//                 temp2->next = temp1;
+//                 prenode->next = temp2;
+//             }
             
-        }
-    }
-}
+//         }
+//     }
+// }
 
 
 
