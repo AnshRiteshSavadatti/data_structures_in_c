@@ -144,9 +144,7 @@ while(i < position - 1){
 temp = previousnode->next;
 nextnode = temp->next;
 previousnode->next = nextnode;
-printf("'hi1'");
 nextnode->previous = previousnode;
-printf("'hi'");
 free(temp);
 return head;
 }
