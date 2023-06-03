@@ -1,8 +1,10 @@
 #include<stdio.h>
 #include<stdlib.h>
+#include<string.h>
 
 struct  node{
-    int data;
+    char name[20];
+    int roll;
     struct node* next;
 };
 
@@ -15,8 +17,10 @@ Node create(){
         printf("Memory not allocated\n");
         exit(0);
     }
-    printf("Enter the data\n");
-    scanf("%d",&newnode->data);
+    printf("Enter the roll no\n");
+    scanf("%d",&newnode->roll);
+    printf("Enter the name");
+    scanf("%s",newnode->name);
     newnode->next = newnode;
     return newnode;
 }
@@ -41,10 +45,13 @@ Node insert_at_end(Node head){
 void display(Node head){
     Node temp = head;
     while(temp->next != head){
-        printf("%d\n",temp->data);
+        printf("%s\n",temp->name);
+        printf("%d\n",temp->roll);
         temp = temp->next;
-    }    
-    printf("%d\n",temp->data);
+    }
+        printf("%s\n",temp->name);
+        printf("%d\n",temp->roll);    
+    
     return;
 }
 
@@ -99,50 +106,40 @@ Node insert_at_pos(Node head){
     return head;
 }
 
-// Node delete_front(Node head){
-//     Node temp;
-//     temp = head;
-//     head = temp->next;
-//     Node temp2 = head;
-//     while(temp2->next !=head){
-//         temp2 = temp2->next;
-//     }
-//     temp2->next = head;
-//     free(temp);
-//     return head;
-// }
-Node reverse(Node head)
-{
-    Node prevnode,currentnode,nextnode;
-    currentnode=nextnode=head;
-    prevnode=NULL;
-    if(head==NULL)
-    {
-        printf("The list is empty");
-        exit(0);
+ void search_roll(Node head){
+    int n;
+    printf("\nEnter the roll no\n");
+    scanf("%d",&n);
+    Node temp = head;
+    while(temp->next != head){
+        if(temp->roll == n){
+            printf("%s\n",temp->name);
+        }
+        temp = temp->next;
     }
-   
-    while(nextnode->next != head)
-    {
-        nextnode=nextnode->next;
-        currentnode->next=prevnode;
-        prevnode=currentnode;
-        currentnode=nextnode;
-    }
-    nextnode=nextnode->next;
-    currentnode->next=prevnode;
-    prevnode=currentnode;
-    currentnode=nextnode;
-    head=prevnode;
-    nextnode->next = head;
-    return head;
+  return;
 }
+
+void search_name(Node head){
+    char name[20];
+    Node temp = head;
+    printf("Enter the name which is to be searched\n");
+    scanf("%s",name);
+    while(temp->next != head){
+        int k = strcmp(name, temp->name);
+        if(k == 0){
+        printf("%s\n",temp->name);
+        printf("%d\n",temp->roll);    
+        }
+    }
+}
+
 
 int main(){
     int ch;
     Node head = NULL;
     while(1){
-        printf("Enter\n1 to insert at end\n2 to insert at begning\n3 to insert at position\n4 to reverse\n7 to display\n");
+        printf("Enter\n1 to insert at end\n2 to insert at begning\n3 to insert at position\n4 to search roll no\n5 to search name\n7 to display\n");
         printf("0 to exit\n");
         scanf("%d",&ch);
         switch (ch){
@@ -156,7 +153,10 @@ int main(){
             head = insert_at_pos(head);
             break;
         case 4:
-            head = reverse(head);
+            search_roll(head);
+            break;
+        case 5:
+            search_name(head);
             break;
         case 7:
             display(head);

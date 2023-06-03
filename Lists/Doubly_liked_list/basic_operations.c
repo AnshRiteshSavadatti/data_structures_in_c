@@ -139,7 +139,6 @@ Node temp, previousnode = head, nextnode;
 int i=1; 
 while(i < position - 1){
     previousnode = previousnode->next;
-    printf("'hi'");
 }
 temp = previousnode->next;
 nextnode = temp->next;
