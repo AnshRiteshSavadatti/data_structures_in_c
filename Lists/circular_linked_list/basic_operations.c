@@ -99,18 +99,83 @@ Node insert_at_pos(Node head){
     return head;
 }
 
-// Node delete_front(Node head){
-//     Node temp;
-//     temp = head;
-//     head = temp->next;
-//     Node temp2 = head;
-//     while(temp2->next !=head){
-//         temp2 = temp2->next;
-//     }
-//     temp2->next = head;
-//     free(temp);
-//     return head;
-// }
+Node delete_front(Node head){
+    Node temp;
+    temp = head;
+    head = head->next;
+    Node temp2 = head;
+    while(temp2->next != temp){
+        temp2 = temp2->next;
+    }
+    temp2->next = head;
+    free(temp);
+    return head;
+}
+
+Node delete_from_end(Node head){
+    Node temp,  temp2;
+    temp = head;
+    if(head->next == head){
+        free(head);
+    }
+    while(temp->next != head){
+        temp2 = temp;
+        temp = temp->next;
+    }
+    temp2->next = head;
+    free(temp);
+    return head;
+}
+
+Node delete_at_pos(Node head){
+    int l = lenght(head);
+    int position;
+    printf("Enter the position\n");
+    scanf("%d",&position);
+    if(position > l || position < 0){
+        printf("Invalid Input\n");
+    }
+    else{
+        if(position == 1){
+            head = delete_front(head);
+        }
+        else if(position == l){
+            head =delete_from_end(head);
+        }
+        else{
+            Node temp = head;
+            int i = 1;
+            while(i < position - 1){
+                temp = temp->next;
+                i++;
+            }
+            Node temp2 = temp->next; // temp2 is at position
+            temp->next = temp2->next;
+            free(temp2);
+        }
+    }
+    return head;
+}
+
+void search(Node head){
+    int data;
+    int cnt = 0;
+    printf("Enter the data\n");
+    scanf("%d",&data);
+    Node temp = head;
+    while(temp ->next != head){
+        if(data == temp->data){
+            printf("Found\n");
+            cnt++;
+        }
+        temp = temp->next;
+    }
+    if(cnt == 0){
+        printf("Not found\n");
+    }
+  return ;
+}
+
 Node reverse(Node head)
 {
     Node prevnode,currentnode,nextnode;
@@ -142,7 +207,8 @@ int main(){
     int ch;
     Node head = NULL;
     while(1){
-        printf("Enter\n1 to insert at end\n2 to insert at begning\n3 to insert at position\n4 to reverse\n7 to display\n");
+        printf("Enter\n1 to insert at end\n2 to insert at begning\n3 to insert at position\n4 to reverse\n5 to delete from front\n6 to delete form end\n7 to display\n");
+        printf("8 to delete at position\n9 to search\n");
         printf("0 to exit\n");
         scanf("%d",&ch);
         switch (ch){
@@ -158,8 +224,20 @@ int main(){
         case 4:
             head = reverse(head);
             break;
+        case 5:
+            head = delete_front(head);
+            break;
+        case 6:
+            head = delete_from_end(head);
+            break;
         case 7:
             display(head);
+            break;
+        case 8:
+            head = delete_at_pos(head);
+            break;
+        case 9:
+            search(head);
             break;
         default:
             exit(0);
