@@ -30,7 +30,7 @@ int main(){
     // ansh.num = 100;
     // ansh.str = "learning";
 
-    // node ansh = new node("ansh", 100, 500);
+    // node *ansh = new node("ansh", 100, 500);
 
     // // containers
     // // Arrays
@@ -41,11 +41,11 @@ int main(){
     // // iterators
     // // begin() , rbegin(), end(), rend();
     // array<int, 5> arr = {1,2,3,4,5};
-    // for(auto it: arr.begin(); it != arr.end(); it++){
+    // for(auto it= arr.begin(); it != arr.end(); it++){
     //     cout<< *it <<" ";
     // }
     // // for each loop
-    // for(auto it: arr){
+    // for(auto it= arr){
     //     cout<<it<<" ";
     // }
     // // some basic functions
@@ -106,5 +106,78 @@ int main(){
         }
         cout<<endl;
     }
+
+    //  defining a vector inside a vecotor
+    vector<vector<int>>(10, vector<int>(10,0));
+
+    // set -> unique elements stored in sorted order
+    set<int> st;
+    st.insert(5);
+    int n;
+    cin>>n;
+    for(int i=0; i<n; i++){
+        int x;
+        cin>>x;
+        st.insert(x);  // log(n)  -> here n is size of cointainer
+    }
+
+    // to erase the first element
+    st.erase(st.begin());
+    // to erase first two elements
+    st.erase(st.begin(), st.begin()+2); // [ )
+    // to erase a particular element
+    st.erase(5); // deleates the element 5 in set
+    
+    auto it = st.find(7); // returns the iterator to 7
+    // if the element doesnt exist then the end iterator will be returned
+
+    st.emplace(6); // same as st.insert
+
+    // to delete the entire set
+    st.erase(st.begin(), st.end());
+
+
+    // unordered set
+
+    unordered_set<int> st;
+    // time complexity is also O(1);
+    //in some worst cases the time complexity is O(set size)
+
+    multiset<int> ms;  // we can store all the elements in ascending order and we can also store all the non unique elements
+    ms.insert(2);
+    ms.insert(2);
+    ms.insert(1);
+    ms.insert(3);  // -->{1,2,2,3}
+    ms.clear(); // deletes the entire nulti set
+    ms.erase(2); // deletes all the occurance of 2
+    ms.erase(ms.find(2)); // deletes the only one occurance of 2
+    ms.find(2); // returns the number of occurances of 2
+
+
+    // map --> sorted according to the keys --> log(n)
+    map<int, int> mpp;
+    mpp[1] = 100;
+    mpp[3] = 300;
+    mpp[2] = 200;
+    mpp[4] = 400;
+    mpp.emplace(1,500);
+    mpp.erase(1);
+    mpp.clear();
+    auto it = mpp.find(2); // points where 2 lies
+    if(mpp.empty()){
+        cout<< "map is empty"<<endl;
+    }
+
+
+    // printing a map
+    for(auto it:mpp){
+        cout<<it.first<<" "<<it.second;
+    }
+
+    // pair
+    pair<int,int> pr;
+    pr.first(1);
+    pr.second(100);
+
     return 0;
 }
