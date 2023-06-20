@@ -21,9 +21,8 @@ Node create(){
  printf("Enter the year\n");
  scanf("%d",&newnode->year);
  printf("Enter the singer name\n");
-//  scanf("%s",newnode->singer);
-fflush(stdin);
-gets(newnode->singer);
+ fflush(stdin);
+ gets(newnode->singer);
  printf("Enter the movie of song\n");
  scanf("%s",newnode->movie);
  printf("Enter the duration\n");
@@ -75,43 +74,42 @@ void displat_arjit(Node head){
 
 }
 
+Node delete_at_front(Node head){
+    Node temp = head;
+    while(temp->next != head){
+        temp = temp->next;
+    }
+    temp->next = head->next;
+    Node temp3 = head;
+    head = head->next;
+    free(temp);
+    return head;
+}
+
+
 Node delete(Node head){
     int y;
     printf("Enter the year\n");
     scanf("%d",&y);
     Node temp = head;
     Node temp1 = NULL;
-    while(temp->next != head){
-        if(y == temp->year){
-            if(temp = head){
-                Node temp2 = head;
-                while(temp2->next != head){
-                    temp2 = temp2 ->next;
-                    printf("HI\n");
-                }
-                head = head->next;
-                temp2->next = head;
-                Node temp3 = temp->next;
-                free(temp);
-                temp = temp3;
-                continue;
-            }
-            if(temp->next = head){
-                temp1->next = head;
-                free(temp);
+    while (temp->next != head)
+    {   if(y == temp->year){
+          if(temp == head){
+                head = delete_at_front(head);
+                return head;
             }
             else{
                 temp1->next = temp->next;
-                Node temp3 = temp->next;
                 free(temp);
-                printf("HI\n");
-                temp = temp3;
-                continue;
+                return head;
             }
         }
         temp1 = temp;
         temp = temp->next;
+    
     }
+    
     return head;
 }
 
@@ -129,12 +127,12 @@ Node insert_at_pos(Node head){
     int pos;
     printf("Enter the positoin\n");
     scanf("%d",&pos);
+    Node newnode = create();
     if(pos<0 || pos>l){
         printf("Invalid Input\n");
         return head;
     }
-    Node newnode = create();
-    if(pos == 1){
+    else if(pos == 1){
         Node temp = head;
         newnode->next = head;
         while(temp->next != head){
@@ -144,7 +142,7 @@ Node insert_at_pos(Node head){
         head = newnode;
 
     }
-    if(pos == l){
+    else if(pos == l){
         head = insert_at_end(head);
     }
     else{
@@ -161,12 +159,30 @@ Node insert_at_pos(Node head){
     return head;
 }
 
+void display(Node head){
+    Node temp = head;
+    while (temp->next != head)
+    {
+        /* code */
+        printf("%d\n",temp->year);
+        printf("%s\n",temp->singer);
+        printf("%s\n",temp->movie);
+        printf("%f\n",temp->duration); 
+        temp = temp->next; 
+    }
+        printf("%d\n",temp->year);
+        printf("%s\n",temp->singer);
+        printf("%s\n",temp->movie);
+        printf("%f\n",temp->duration); 
+    
+}
+
 int main(){
     Node head = NULL;
     int ch;
     while ((1))
     {
-        printf("Enter\n1 to insert at end\n2 to display songs by arjit singh\n3 to delete the songs of particular year\n4 to add the song at pos\n");
+        printf("Enter\n1 to insert at end\n2 to display songs by arjit singh\n3 to delete the songs of particular year\n4 to add the song at pos\n5 to display songs\n");
         scanf("%d",&ch);
         switch (ch)
         {
@@ -181,6 +197,9 @@ int main(){
             break;
         case 4 :
             head = insert_at_pos(head);
+            break;
+        case 5:
+            display(head);
             break;
         default :
             exit(0);        

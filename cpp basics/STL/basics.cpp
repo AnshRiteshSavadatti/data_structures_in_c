@@ -174,6 +174,10 @@ int main(){
         cout<<it.first<<" "<<it.second;
     }
 
+    for(auto it= mpp.begin(); it!= mpp.end(); it++){
+        cout<<it->first<<" "<<it->second;
+    }
+
     // pair
     pair<int,int> pr;
     pr.first(1);

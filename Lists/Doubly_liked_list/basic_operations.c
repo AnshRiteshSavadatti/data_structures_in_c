@@ -149,8 +149,43 @@ return head;
 }
 }
 
+Node search_delete(Node head){
+    Node temp = head;
+    int key;
+    printf("Enter the key which is to be deleated\n");
+    scanf("%d",&key);
+    printf("hi\n");
+    Node temp2;
+    while(temp->next != NULL){
+        Node temp3 = temp;
+        if(key == temp->data){
+            if(head == temp){
+                head = delete_from_beg(head);
+            }
+            else if(temp->next == NULL){
+                head = delete_from_end(head);
+            }
+            else{
+                printf("hi2\n");
+                temp2->next = temp->next;
+                free(temp);
+                printf("hi3\n");
+            }
+
+        }
+        temp = temp3;
+        temp2 = temp;
+        temp = temp->next;
+    }
+    return head;
+}
+
 void display(Node head){
     Node temp = head;
+    if(head == NULL){
+        printf("List is empty\n");
+        return;
+    }
     while(temp != NULL){
         printf("%d\n",temp->data);
         temp = temp->next;
@@ -168,12 +203,12 @@ void display_reverese(Node head){
     }
 }
 
-int main(){
+int main(void){
     int ch;
     Node head = NULL;
     while(1){
         printf("Enter\n1 to insert at end\n2 to insert at positon\n3 to insert at first\n4 to display\n5 to display the list in reverse order\n");
-        printf("6 to delete from begning\n7 to delete from end\n8 to delete from any position\n");
+        printf("6 to delete from begning\n7 to delete from end\n8 to delete from any position\n9 to search and delete\n");
         printf("0 to exit\n");
         scanf("%d",&ch);
         switch(ch){
@@ -203,6 +238,9 @@ int main(){
             break;
             case 8:
             head = delete_at_pos(head);
+            break;
+            case 9:
+            head = search_delete(head);
             break;
             default:
             exit(0);
