@@ -1,3 +1,5 @@
+// with parenthesis in order ie this --> ' ( ' first then this --> ' ) '
+
 #include<stdio.h>
 #include<stdlib.h>
 #include<string.h>
