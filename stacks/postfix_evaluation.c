@@ -1,17 +1,12 @@
-// (a + ( b * c )) == abc*+  -- > postfix
-// (a + ( b * c )) == +a*bc  -- > prefix
-
-// a + b + (c * d) ==  ++ab*cd -- > prefix
-// a + b + (c * d) ==  ab+cd*+ -- > prefix
-
 
 #include<Stdio.h>
 #include<stdlib.h>
 #include<string.h>
+#include<ctype.h>
 #define MAX 15
 
 typedef struct stack{
-    char data[MAX];
+    int data[MAX];
     int top;
 }stack;
 
@@ -27,9 +22,11 @@ int isFull(stack *s){
     return 0;
 }
 
-void push(stack *s,char x){
-    
+void push(stack *s,int x){
+    // int x;
     if(!isFull(s)){
+    // printf("Enter the data which is to be inserted\n");
+    // scanf("%d",&x);
     s->top++;
     s->data[s->top] = x;
     }
@@ -38,7 +35,7 @@ void push(stack *s,char x){
     }
 }
 
-char pop(stack *s){
+int pop(stack *s){
     char x;
     if(!isEmpty(s)){
         x = s->data[s->top];
@@ -59,14 +56,6 @@ void display(stack s){
     }
 }
 
-int precedence(char x){
-    if(x == '+' || x == '-')
-    return 1;
-    else if(x == '*' || x == '/')
-    return 2;
-    else 
-    return 0;
-}
 
 int isOpreant(char x){
     if(x == '+' || x == '-' || x == '*' || x == '/')
@@ -74,29 +63,34 @@ int isOpreant(char x){
     return 1;
 }
 
-void postfix(char ptr[MAX], stack *s){
-    // char postfix = new char[strlen(MAX)+1];
-    char postfix[MAX+1];
-    int i = 0, j = 0;
-    while(ptr[i] != '\0'){
-        if(isOpreant(ptr[i])){
-            postfix[j++] = ptr[i++];
-        }
+int result(int m, int n, char ch){
+    switch(ch){
+        case '+':
+            return m+n;
+        case '-':
+            return m-n;
+        case '*':
+            return m*n;
+        case '/':
+            return m/n;
+    }
+}
+
+void calculate(stack * s, char ptr[MAX]){
+    int r;
+    for(int i=0;  i<strlen(ptr); i++){    //  || i<strlen(ptr);  --> as condition
+        if(isdigit(ptr[i]))
+        push(s,ptr[i]-'0');
         else{
-            if(isEmpty(s) || precedence(ptr[i]) > precedence(s->data[i]))
-                push(s,ptr[i++]);
-            else{
-                postfix[j++] = pop(s);
-            }
+            int m = pop(s);
+            int n = pop(s);
+            r = result(m,n,ptr[i]);
+            push(s,r);
         }
     }
-    while(!isEmpty(s)){
-        postfix[j++] = pop(s);
-     }
-     postfix[j] = '\0';
-     printf("%s\n",postfix);
-     printf("hi");
+    printf("%d : is the answer\n",s->data[s->top]);
 }
+
 
 int main(){
     stack s;
@@ -105,14 +99,14 @@ int main(){
     char infix[15];
     while(1){
         int exp;
-        printf("Enter\n1 to convert ot postfix\n2 to exit\n");
+        printf("Enter\n1 to calculate\n2 to exit\n");
         scanf("%d",&exp);
         switch (exp)
         {
         case 1:
             printf("Enter the expression\n");
             scanf("%s",infix);  
-            postfix(infix,&s);          
+            calculate(&s ,infix);          
             break;
         default:
             exit(0);
