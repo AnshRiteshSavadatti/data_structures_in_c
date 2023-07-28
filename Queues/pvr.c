@@ -17,7 +17,8 @@ Node create(){
         printf("Queue underflow\n");
         return newnode;
     }
-    newnode->next = NULL;
+    newnode->next =
+     NULL;
     printf("Enter the gender\n");
         fflush(stdin);
     scanf("%c",&newnode->gender);

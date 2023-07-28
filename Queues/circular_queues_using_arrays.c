@@ -47,7 +47,7 @@ int dequeue(Queue *q){
         return INT_MIN;
 }
 
-void display(Queue *q){
+void display(Queue *q){ 
     if(!isEmpty(q)){
         int i;
         for( i = q->front + 1; i != (q->rare+1) % MAX; i = (i+1) % MAX)
