@@ -46,7 +46,7 @@ void union_(int arr[], int n, int u, int v){
 int kruskals(NODE edges[], int n, int arr[]){
     int sum = 0;
     for(int i=0; i<n; i++){
-        if(!find(arr,edges[i].u, edges[i].v)){
+        if(!find(arr, edges[i].u, edges[i].v)){
             union_(arr, 10, edges[i].u, edges[i].v);
             sum += edges[i].w;
             printf("%d %d\n",edges[i].u, edges[i].v);
@@ -62,6 +62,7 @@ void print(int arr[], int n){
     }
     return;
 }
+
 
 int main(){
     int n;
